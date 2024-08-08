@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const text = `in the wake of waxing crescent grand // mother asks me if i have a
         girlfriend // i respond with an assemblage of stones in my throat //
-        they are masquerading as language // my brother has
+        masquerading as language // my brother has
         the luxury of compulsive
         heterosexuality // i stare at the dirty ground which has never reflected
         the moon // i peel a tomato between my thumb and fore // finger and suck
@@ -71,7 +71,7 @@ export default function Home() {
           </p>
         </>
       ) : (
-        <button onClick={() => setOpened(true)}>listen...</button>
+        <button onClick={() => setOpened(true)}>enter...</button>
       )}
     </main>
   );
