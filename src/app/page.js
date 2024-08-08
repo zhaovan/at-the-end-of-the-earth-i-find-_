@@ -37,6 +37,7 @@ export default function Home() {
               src={"/image.png"}
               width={600}
               height={450}
+              priority
               className={styles.image1}
               alt="family photo"
             />
@@ -45,7 +46,6 @@ export default function Home() {
               width={600}
               height={450}
               className={styles.image2}
-              priority
               alt="family photo"
             />
           </div>
