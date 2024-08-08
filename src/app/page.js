@@ -5,12 +5,11 @@ import { useEffect, useState } from "react";
 
 const text = `in the wake of waxing crescent grand // mother asks me if i have a
 girlfriend // i respond with an assemblage of stones in my throat //
-masquerading as language // my brother has the luxury of compulsive
-heterosexuality // i stare at the dirty ground which has never reflected
+masquerading as language // i stare at the dirty ground which has never reflected
 the moon // i peel a tomato between my thumb and fore // finger and suck
 the juice between my tongues // seed after seed stick in my lungs as
 we bask in fried fish and scheming alliums // the fish eye drowns me in
-it's knowingness // my brother is having a wedding parade // he
+it's knowingness // my brother parades his compulsive heterosexuality // he
 feigns cultural understanding and is rewarded with red envelopes // when i
 bring {} i am rewarded with malfeasance and gravestones // oh
 how i would love to lick the salt off those envelopes // to taste
