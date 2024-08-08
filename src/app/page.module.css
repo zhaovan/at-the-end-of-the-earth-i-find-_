@@ -45,7 +45,7 @@
 }
 
 .fadingText {
-  animation: fade 10s ease-in-out forwards;
+  animation: fade 4s ease-in-out forwards;
   position: absolute;
   z-index: 50;
 }
