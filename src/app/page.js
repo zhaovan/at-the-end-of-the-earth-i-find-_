@@ -40,7 +40,7 @@ export default function Home() {
               alt="family photo"
             />
             <Image
-              src={"/image2.png"}
+              src={"/image3.jpeg"}
               width={600}
               height={450}
               className={styles.image2}
