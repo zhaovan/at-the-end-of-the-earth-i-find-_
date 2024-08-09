@@ -49,7 +49,7 @@ export default function Home() {
           </div>
           <p>
             {text.split("//").map((line, idx) => {
-              const animationDelayValue = idx * 10;
+              const animationDelayValue = idx * 3;
               const top = (idx + 1) * 5;
               const left = Math.random() * 75;
               return (
