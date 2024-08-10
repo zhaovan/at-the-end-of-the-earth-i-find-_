@@ -21,6 +21,7 @@ export default function Home() {
   useEffect(() => {
     const audio = new Audio("/bg.mp3");
     audio.volume = 0.15;
+    audio.loop = true;
     document.addEventListener("mousemove", () => {
       audio.play();
     });
