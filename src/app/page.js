@@ -3,15 +3,15 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 
-const text = `in the wake of waxing crescent grand // mother asks me if i have a
+const text = `in wake of waxing crescent grand // mother asks if i have a
 girlfriend // i respond with an assemblage of stones in my throat //
-masquerading as language // i stare at the dirty ground which has never reflected
+masquerading as language // the dirty ground has never reflected
 the moon // i peel a tomato between my thumb and fore // finger and suck
-the juice between my tongues // seed after seed stick in my lungs as
-we bask in fried fish and scheming alliums // the fish eye drowns me in
-it's knowingness // my brother parades his compulsive heterosexuality // he
-feigns cultural understanding and is rewarded with red envelopes // when i
-bring {} i am rewarded with malfeasance and gravestones // oh
+the juice between my tongues // seed after seed in my lungs //
+we bask in fried fish scheming alliums // the fish eye drowns me in
+its knowingness // my brother parades his compulsive heterosexuality // he
+feigns cultural understanding // rewarded with red envelopes // when i
+bring {} // i am rewarded with malfeasance & gravestones // oh
 how i would love to lick the salt off those envelopes // to taste
 fingerdust and flaky skin // to bring him around with no questions //
 to tell them how i've kissed the sky`;
