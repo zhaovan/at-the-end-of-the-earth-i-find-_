@@ -27,6 +27,8 @@ export default function Home() {
     });
   }, []);
 
+  const windowSize = window.innerWidth;
+
   return (
     <main className={styles.main}>
       {opened ? (
@@ -52,7 +54,9 @@ export default function Home() {
             {text.split("//").map((line, idx) => {
               const animationDelayValue = (idx + 1) * 3;
               const top = (idx + 1) * 5;
-              const left = Math.random() * 75;
+              console.log(windowSize);
+              const left =
+                windowSize > 700 ? Math.random() * 75 : Math.random() * 50;
               return (
                 <span
                   className={styles.fadingText}

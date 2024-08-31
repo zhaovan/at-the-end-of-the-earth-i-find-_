@@ -50,6 +50,18 @@
   z-index: 50;
 }
 
+@media screen and (max-width: 768px) {
+  .fadingText {
+    font-size: 0.825rem;
+  }
+
+  .image1,
+  .image2 {
+    width: 50%;
+    height: 50%;
+  }
+}
+
 @keyframes fade {
   from {
     opacity: 1;
