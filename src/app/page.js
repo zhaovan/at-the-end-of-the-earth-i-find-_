@@ -18,6 +18,8 @@ to tell them how i've kissed the sky`;
 
 export default function Home() {
   const [opened, setOpened] = useState(false);
+
+  const [windowSize, setWindowSize] = useState(0);
   useEffect(() => {
     const audio = new Audio("/bg.mp3");
     audio.volume = 0.15;
@@ -25,9 +27,9 @@ export default function Home() {
     document.addEventListener("mousemove", () => {
       audio.play();
     });
-  }, []);
 
-  const windowSize = window.innerWidth;
+    setWindowSize(window.innerWidth);
+  }, []);
 
   return (
     <main className={styles.main}>
@@ -54,7 +56,6 @@ export default function Home() {
             {text.split("//").map((line, idx) => {
               const animationDelayValue = (idx + 1) * 3;
               const top = (idx + 1) * 5;
-              console.log(windowSize);
               const left =
                 windowSize > 700 ? Math.random() * 75 : Math.random() * 50;
               return (
