@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {opened ? (
-        <>
+        <div className={styles.container}>
           <div className={styles.imageContainer}>
             <Image
               src={"/image.png"}
@@ -73,9 +73,11 @@ export default function Home() {
               );
             })}
           </p>
-        </>
+        </div>
       ) : (
-        <button onClick={() => setOpened(true)}>look for {"{}"}</button>
+        <button onClick={() => setOpened(true)} className={styles.enterButton}>
+          look for {"{}"}
+        </button>
       )}
     </main>
   );
