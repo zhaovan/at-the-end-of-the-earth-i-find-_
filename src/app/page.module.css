@@ -3,11 +3,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 6rem 20vw;
+  padding: 6rem 10rem;
   min-height: 100vh;
   font-family: "Garamond";
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   gap: 1rem;
+  background-color: #0a0a0a;
 }
 
 .imageContainer {
@@ -29,8 +30,18 @@
   position: absolute;
   left: 0;
   z-index: 0;
+  animation: fadeIn 4s ease-out;
   transform: scaleX(-1);
   opacity: 0.8;
+}
+
+.enterButton {
+  animation: float 2s infinite;
+  background-color: #0a0a0a;
+  transition: background-color 150ms ease-out;
+}
+.enterButton:hover {
+  background-color: #1a1a1a;
 }
 
 @keyframes flicker {
@@ -62,8 +73,12 @@
 
   .image1,
   .image2 {
-    width: 100%;
+    width: 80vw;
     height: auto;
+  }
+
+  .main {
+    padding: 0;
   }
 }
 
@@ -74,15 +89,6 @@
   to {
     opacity: 0;
   }
-}
-
-.enterButton {
-  animation: float 2s infinite;
-  box-shadow: 0px 0px 60px 10px rgba(151, 247, 151, 0.6);
-  transition: box-shadow 200ms ease-out;
-}
-.enterButton:hover {
-  box-shadow: none;
 }
 
 @keyframes float {
