@@ -8,7 +8,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <link rel="icon" href="/icon.png" sizes="any" />
+      <link rel="icon" href="/icon2.png" sizes="any" />
       <body>{children}</body>
     </html>
   );

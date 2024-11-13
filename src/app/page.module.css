@@ -39,6 +39,8 @@
   animation: float 2s infinite;
   background-color: #0a0a0a;
   transition: background-color 150ms ease-out;
+  border-radius: 0.5rem;
+  border: 1px solid #1a1a1a;
 }
 .enterButton:hover {
   background-color: #1a1a1a;
