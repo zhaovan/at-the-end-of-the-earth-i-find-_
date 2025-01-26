@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  height: 100vh;
+}
+
+.word {
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
