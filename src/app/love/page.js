@@ -41,6 +41,15 @@ export default function Love() {
   // }
 
   useEffect(() => {
+    const audio = new Audio("/bg.mp3");
+    audio.volume = 0.15;
+    audio.loop = true;
+    document.addEventListener("mousemove", () => {
+      audio.play();
+    });
+  }, []);
+
+  useEffect(() => {
     const intervalId = setInterval(() => {
       // Think about what the pattern could look like for word changing
 
