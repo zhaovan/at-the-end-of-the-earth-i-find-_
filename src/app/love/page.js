@@ -32,29 +32,27 @@ let selectedWord = words[Math.floor(Math.random() * words.length)];
 export default function Love() {
   const [gridWords, setGridWords] = useState(words);
 
-  function fisherYatesShuffle(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  }
+  // function fisherYatesShuffle(arr) {
+  //   for (let i = arr.length - 1; i > 0; i--) {
+  //     const j = Math.floor(Math.random() * (i + 1));
+  //     [arr[i], arr[j]] = [arr[j], arr[i]];
+  //   }
+  //   return arr;
+  // }
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      const shuffledWords = fisherYatesShuffle([...gridWords]);
-
-      const foundWordIdx = shuffledWords.findIndex(
-        (word) => word !== selectedWord
-      );
-      shuffledWords[foundWordIdx] = selectedWord;
+      // Think about what the pattern could look like for word changing
 
       if (gridWords.every((word) => word === selectedWord)) {
         setGridWords([...words]);
         selectedWord = words[Math.floor(Math.random() * words.length)];
-      } else {
-        setGridWords([...shuffledWords]);
+        return;
       }
+
+      const foundWordIdx = gridWords.findIndex((word) => word !== selectedWord);
+      gridWords[foundWordIdx] = selectedWord;
+      setGridWords([...gridWords]);
     }, 1000);
     return () => clearInterval(intervalId);
   }, [gridWords]);

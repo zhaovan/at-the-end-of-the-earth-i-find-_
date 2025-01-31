@@ -68,6 +68,7 @@ export default function Empty() {
                   top: `${topPos[idx]}vh`,
                   left: `calc(${leftPos[idx]}vw + 10px)`,
                   animationDelay: `${animationDelay[idx]}s`,
+                  animationSpeed: `${animationDelay[idx] * 1.1}s`,
                 }}
               >
                 {"]"}
