@@ -12,6 +12,8 @@
   display: flex;
   position: relative;
   height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 .empty,
@@ -25,7 +27,7 @@
 
 .empty2 {
   position: absolute;
-  top: 40vh;
+  top: 30vh;
   right: 0;
   text-align: right;
 }
