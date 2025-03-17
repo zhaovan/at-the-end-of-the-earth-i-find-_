@@ -40,14 +40,14 @@ export default function Love() {
   //   return arr;
   // }
 
-  useEffect(() => {
-    const audio = new Audio("/bg.mp3");
-    audio.volume = 0.15;
-    audio.loop = true;
-    document.addEventListener("mousemove", () => {
-      audio.play();
-    });
-  }, []);
+  // useEffect(() => {
+  //   const audio = new Audio("/bg.mp3");
+  //   audio.volume = 0.15;
+  //   audio.loop = true;
+  //   document.addEventListener("mousemove", () => {
+  //     audio.play();
+  //   });
+  // }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {

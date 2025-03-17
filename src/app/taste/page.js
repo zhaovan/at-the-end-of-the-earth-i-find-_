@@ -6,12 +6,12 @@ import styles from "./page.module.css";
 export default function Pain() {
   const [windowSize, setWindowSize] = useState(0);
   useEffect(() => {
-    const audio = new Audio("/bg.mp3");
-    audio.volume = 0.15;
-    audio.loop = true;
-    document.addEventListener("mousemove", () => {
-      audio.play();
-    });
+    // const audio = new Audio("/bg.mp3");
+    // audio.volume = 0.15;
+    // audio.loop = true;
+    // document.addEventListener("mousemove", () => {
+    //   audio.play();
+    // });
 
     setWindowSize(window.innerWidth);
   }, []);
