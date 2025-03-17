@@ -16,15 +16,25 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <button
-        className={styles.enterButton}
-        onClick={() => {
-          const randomIndex = Math.floor(Math.random() * links.length);
-          window.location.href = links[randomIndex];
-        }}
-      >
-        look for {"{}"}
-      </button>
+      {links.map((link) => {
+        const randDuration = Math.floor(Math.random() * 6) + 1;
+        return (
+          <button
+            className={styles.enterButton}
+            key={link}
+            style={{ animationDuration: `${randDuration}s` }}
+            onClick={() => {
+              window.open(
+                link,
+                "_blank",
+                "width=1600,height=1200,noopener,noreferrer"
+              );
+            }}
+          >
+            look for {link.slice(1)}
+          </button>
+        );
+      })}
     </main>
   );
 }
