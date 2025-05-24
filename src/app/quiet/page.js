@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./page.module.css";
+import { useSerial } from "@/context/SerialContext";
+import { getHeartbeatData } from "@/helpers/transformHeartbeatData";
 
 export default function Empty() {
   const [numSpace, setNumSpace] = useState(1);
@@ -19,8 +21,13 @@ export default function Empty() {
     []
   );
 
+  const { output, startTime } = useSerial();
+
+  const { sensorOn, heartRateDuration } = getHeartbeatData(output, startTime);
+
   useEffect(() => {
     const audio = new Audio("/bg.mp3");
+
     audio.volume = 0.15;
     audio.loop = true;
     document.addEventListener("mousemove", () => {
@@ -46,8 +53,21 @@ export default function Empty() {
     <>
       <div className={styles.noiseLayer} />
       <div className={styles.container}>
-        <h1 className={styles.empty}>{"{"}</h1>
-        <h1 className={styles.empty2} style={{ animationDelay: "150ms" }}>
+        <h1
+          className={styles.empty}
+          style={{
+            animationDuration: sensorOn ? `${heartRateDuration}s` : "0s",
+          }}
+        >
+          {"{"}
+        </h1>
+        <h1
+          className={styles.empty2}
+          style={{
+            animationDelay: "150ms",
+            animationDuration: sensorOn ? `${heartRateDuration}s` : "",
+          }}
+        >
           {"}"}
         </h1>
         {[...Array(numItems)].map((_, idx) => {

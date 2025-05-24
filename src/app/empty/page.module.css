@@ -35,6 +35,7 @@
 .emptyBracket,
 .emptyBracket2 {
   position: absolute;
+  animation: flicker 2s ease-out infinite;
   font-size: 1.5rem;
 }
 

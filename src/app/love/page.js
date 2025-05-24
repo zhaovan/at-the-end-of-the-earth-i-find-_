@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
+import { useSerial } from "@/context/SerialContext";
 const words = [
   "fuck",
   "slap",
@@ -31,14 +32,6 @@ let selectedWord = words[Math.floor(Math.random() * words.length)];
 
 export default function Love() {
   const [gridWords, setGridWords] = useState(words);
-
-  // function fisherYatesShuffle(arr) {
-  //   for (let i = arr.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     [arr[i], arr[j]] = [arr[j], arr[i]];
-  //   }
-  //   return arr;
-  // }
 
   useEffect(() => {
     const audio = new Audio("/bg.mp3");

@@ -20,7 +20,10 @@
 .empty2 {
   font-size: 40rem;
   width: 50vw;
-  animation: flicker 2s ease-out infinite;
+  animation-name: flicker;
+  animation-duration: 0ms;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 
   line-height: 1;
 }

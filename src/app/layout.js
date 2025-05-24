@@ -1,5 +1,9 @@
 import "./globals.css";
 
+// import { SerialProvider } from "@/context/SerialContext";
+
+import { SerialProvider } from "../context/SerialContext";
+
 export const metadata = {
   title: "at the end of the earth, i find {}",
   description: "experimental text poem for class",
@@ -9,7 +13,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <link rel="icon" href="/icon2.png" sizes="any" />
-      <body>{children}</body>
+      <SerialProvider>
+        <body>{children}</body>
+      </SerialProvider>
     </html>
   );
 }
