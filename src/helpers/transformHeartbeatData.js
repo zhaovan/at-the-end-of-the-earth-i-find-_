@@ -1,5 +1,5 @@
 function convertHeartRateBPMtoDuration(bpm) {
-  return Math.floor(bpm / 60) | 1;
+  return Math.floor(bpm / 40);
 }
 
 export function getHeartbeatData(data, startTime) {
@@ -22,17 +22,14 @@ export function getHeartbeatData(data, startTime) {
 
   //   Need to do this calculatiuon to get add start time to how the browser treats time
   const arduinoTime = timestampLastBeat + startTime;
-  console.log(arduinoTime);
-  console.log(currentTime);
-  console.log(startTime);
 
   //   Timestamps are in milliseconds so we can just subtract them
   //  to get the difference in milliseconds (which is 1 second) here
   if (
-    currentTime - arduinoTime < 400000 &&
+    currentTime - arduinoTime < 5000 &&
     timestampLastBeat - timestampSecondLastBeat < 1500 &&
-    Math.abs(bpm - secondLastBPM) < 15 &&
-    bpm > 50 &&
+    Math.abs(bpm - secondLastBPM) < 20 &&
+    bpm > 45 &&
     bpm < 200
   ) {
     return {
@@ -40,11 +37,13 @@ export function getHeartbeatData(data, startTime) {
       heartRateDuration: convertHeartRateBPMtoDuration(
         parseInt(lastBeat.split(" ")[1])
       ),
+      timestamp: currentTime,
     };
   } else {
     return {
       sensorOn: false,
       heartRateDuration: 0,
+      timestamp: currentTime,
     };
   }
 }

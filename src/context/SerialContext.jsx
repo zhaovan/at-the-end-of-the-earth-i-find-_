@@ -27,24 +27,29 @@ export function SerialProvider({ children }) {
       setStartTime(now);
       localStorage.setItem("serial-start-time", now); // 🧠 persist to localStorage
       channel.postMessage({ type: "startTime", value: now }); // also broadcast it
-
       console.log("Connected to Arduino");
 
       const decoder = new TextDecoderStream();
       newPort.readable.pipeTo(decoder.writable);
       const reader = decoder.readable.getReader();
+      let buffer = "";
 
       while (true) {
         const { value, done } = await reader.read();
         if (done) break;
         if (value) {
-          const trimmed = value.trim();
+          buffer += value;
 
-          setOutput((prev) => [...prev, trimmed]);
-          channel.postMessage({
-            type: "serial-data",
-            data: trimmed,
-          });
+          let lines = buffer.split("\n");
+
+          // keep last partial line in buffer
+          buffer = lines.pop();
+
+          for (let line of lines) {
+            const trimmed = line.trim();
+            setOutput((prev) => [...prev, trimmed]);
+            channel.postMessage({ type: "serial-data", data: trimmed });
+          }
         }
       }
     } catch (err) {

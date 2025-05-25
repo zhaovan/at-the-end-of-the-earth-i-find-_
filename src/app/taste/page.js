@@ -1,10 +1,14 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./page.module.css";
+import { useSerial } from "@/context/SerialContext";
+import { getHeartbeatData } from "@/helpers/transformHeartbeatData";
 
 export default function Pain() {
   const [windowSize, setWindowSize] = useState(0);
+  const [cycleKey, setCycleKey] = useState(0);
+
   useEffect(() => {
     const audio = new Audio("/bg.mp3");
     audio.volume = 0.15;
@@ -15,6 +19,17 @@ export default function Pain() {
 
     setWindowSize(window.innerWidth);
   }, []);
+
+  // Should take 63 seconds EXACTLY, but we set some buffer time
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCycleKey((prev) => prev + 1);
+    }, 75000);
+
+    return () => clearInterval(interval); // cleanup
+  }, []);
+
+  // 19 Lines
   const text = `in wake of waxing crescent grand // mother asks if i have a
     girlfriend // i respond with an assemblage of stones in my throat //
     masquerading as language // the dirty ground has never reflected
@@ -28,6 +43,36 @@ export default function Pain() {
     fingerdust and flaky skin // to bring him around with no questions //
     to tell them how i've kissed the sky`;
 
+  const heartbeatAudioRef = useRef(null);
+  const { output, startTime } = useSerial();
+  const { sensorOn, heartRateDuration } = getHeartbeatData(output, startTime);
+
+  useEffect(() => {
+    heartbeatAudioRef.current = new Audio("/heartbeat.mp3");
+    heartbeatAudioRef.current.loop = true;
+    heartbeatAudioRef.current.volume = 0.5; // Adjust as needed
+
+    return () => {
+      heartbeatAudioRef.current?.pause();
+      heartbeatAudioRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    const heartbeat = heartbeatAudioRef.current;
+    if (!heartbeat) return;
+
+    if (sensorOn) {
+      heartbeatAudioRef.current.playbackRate = heartRateDuration / 3;
+      heartbeat.play().catch((err) => {
+        console.error("Failed to play heartbeat:", err);
+      });
+    } else {
+      heartbeat.pause();
+      heartbeat.currentTime = 0; // Reset for next play
+    }
+  }, [sensorOn]);
+
   return (
     <div className={styles.main}>
       <div className={styles.container}>
@@ -39,6 +84,9 @@ export default function Pain() {
             priority
             className={styles.image1}
             alt="family photo"
+            style={{
+              animationDuration: sensorOn ? `${heartRateDuration}s` : "2.25s",
+            }}
           />
           <Image
             src={"/image3.jpeg"}
@@ -48,7 +96,7 @@ export default function Pain() {
             alt="family photo"
           />
         </div>
-        <p>
+        <p key={cycleKey}>
           {text.split("//").map((line, idx) => {
             const animationDelayValue = (idx + 1) * 3;
             const top = (idx + 1) * 5;

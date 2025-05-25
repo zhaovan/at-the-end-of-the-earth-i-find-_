@@ -1,12 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import styles from "./page.module.css";
-import { useSerial } from "@/context/SerialContext";
 const words = [
   "fuck",
   "slap",
   "kiss",
-  "marry",
+  "taste",
   "want",
   "desire",
   "eat",
@@ -21,17 +20,24 @@ const words = [
   "lick",
   "bite",
   "love",
-  "down",
+  "marry",
   "serve",
   "lust",
   "bond",
-  "toxicate",
-  "verify",
+  "touch",
+  "kneel",
 ];
+
+const Direction = {
+  FORWARDS: "forwards",
+  BACKWARDS: "backwards",
+};
 let selectedWord = words[Math.floor(Math.random() * words.length)];
 
 export default function Love() {
   const [gridWords, setGridWords] = useState(words);
+
+  const [direction, setDirection] = useState(Direction.BACKWARDS);
 
   useEffect(() => {
     const audio = new Audio("/bg.mp3");
@@ -49,15 +55,24 @@ export default function Love() {
       if (gridWords.every((word) => word === selectedWord)) {
         setGridWords([...words]);
         selectedWord = words[Math.floor(Math.random() * words.length)];
+        setDirection(
+          Math.random() > 0.5 ? Direction.FORWARDS : Direction.BACKWARDS
+        );
         return;
       }
 
-      const foundWordIdx = gridWords.findIndex((word) => word !== selectedWord);
+      let foundWordIdx;
+      if (direction === Direction.FORWARDS) {
+        foundWordIdx = gridWords.findIndex((word) => word !== selectedWord);
+      } else {
+        foundWordIdx = gridWords.findLastIndex((word) => word !== selectedWord);
+      }
+
       gridWords[foundWordIdx] = selectedWord;
       setGridWords([...gridWords]);
-    }, 1000);
+    }, 750);
     return () => clearInterval(intervalId);
-  }, [gridWords]);
+  }, [gridWords, direction]);
 
   return (
     <div className={styles.container}>
