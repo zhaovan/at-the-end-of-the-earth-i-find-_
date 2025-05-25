@@ -24,7 +24,7 @@ export default function Pain() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCycleKey((prev) => prev + 1);
-    }, 75000);
+    }, 75000); // 75 seconds
 
     return () => clearInterval(interval); // cleanup
   }, []);
@@ -75,7 +75,7 @@ export default function Pain() {
 
   return (
     <div className={styles.main}>
-      <div className={styles.container}>
+      <div className={styles.container} key={cycleKey}>
         <div className={styles.imageContainer}>
           <Image
             src={"/image.png"}
@@ -96,7 +96,7 @@ export default function Pain() {
             alt="family photo"
           />
         </div>
-        <p key={cycleKey}>
+        <p>
           {text.split("//").map((line, idx) => {
             const animationDelayValue = (idx + 1) * 3;
             const top = (idx + 1) * 5;
