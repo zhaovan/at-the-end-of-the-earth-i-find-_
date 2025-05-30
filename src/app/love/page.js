@@ -1,6 +1,8 @@
 "use client";
-import React, { use, useEffect, useState } from "react";
+import React, { use, useEffect, useMemo, useState } from "react";
 import styles from "./page.module.css";
+import { useSerial } from "@/context/SerialContext";
+import { getHeartbeatData } from "@/helpers/transformHeartbeatData";
 const words = [
   "fuck",
   "slap",
@@ -39,6 +41,11 @@ export default function Love() {
 
   const [direction, setDirection] = useState(Direction.BACKWARDS);
 
+  const [randomNums, setRandomNums] = useState(words.map(() => Math.random()));
+
+  const { output, startTime } = useSerial();
+  const { sensorOn } = getHeartbeatData(output, startTime);
+
   useEffect(() => {
     const audio = new Audio("/bg.mp3");
     audio.volume = 0.15;
@@ -58,6 +65,7 @@ export default function Love() {
         setDirection(
           Math.random() > 0.5 ? Direction.FORWARDS : Direction.BACKWARDS
         );
+        setRandomNums(words.map(() => Math.random()));
         return;
       }
 
@@ -77,8 +85,22 @@ export default function Love() {
   return (
     <div className={styles.container}>
       {gridWords.map((word, idx) => {
+        const shouldFlicker = randomNums[idx] > 0.6;
+        const randomDelayValue = randomNums[idx];
+
         return (
-          <p key={idx} className={styles.word} suppressHydrationWarning>
+          <p
+            key={idx}
+            style={{
+              "--animation-delay": `${randomDelayValue}s`,
+            }}
+            className={[
+              styles.word,
+              sensorOn && shouldFlicker ? styles.glitch : "",
+            ].join(" ")}
+            suppressHydrationWarning
+            data-text={word}
+          >
             {word}
           </p>
         );
