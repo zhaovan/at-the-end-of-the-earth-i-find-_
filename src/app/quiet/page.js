@@ -30,7 +30,7 @@ export default function Empty() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const { sensorOn, heartRateDuration, timestamp } = getHeartbeatData(
+      const { sensorOn, heartRateDuration } = getHeartbeatData(
         output,
         startTime
       );
