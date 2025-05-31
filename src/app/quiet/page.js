@@ -25,19 +25,21 @@ export default function Empty() {
 
   const heartbeatAudioRef = useRef(null);
   const { output, startTime } = useSerial();
-
-  const { sensorOn, heartRateDuration, timestamp } = getHeartbeatData(
-    output,
-    startTime
-  );
+  const [sensorOn, setSensorOn] = useState(false);
+  const [heartRateDuration, setHeartRateDuration] = useState(0);
 
   useEffect(() => {
-    lastFiveSensorOns.current.push(sensorOn);
+    const interval = setInterval(() => {
+      const { sensorOn, heartRateDuration, timestamp } = getHeartbeatData(
+        output,
+        startTime
+      );
+      setSensorOn(sensorOn);
+      setHeartRateDuration(heartRateDuration);
+    }, 500);
 
-    if (lastFiveSensorOns.current.length > 5) {
-      lastFiveSensorOns.current.shift();
-    }
-  }, [timestamp]);
+    return () => clearInterval(interval);
+  }, [output, startTime]);
 
   // Initialize and persist the heartbeat audio
   useEffect(() => {
@@ -89,9 +91,6 @@ export default function Empty() {
     };
   }, [numSpace]);
 
-  const isSensorOn =
-    lastFiveSensorOns.current.some((value) => value === true) || sensorOn;
-
   return (
     <>
       <div className={styles.noiseLayer} />
@@ -99,7 +98,7 @@ export default function Empty() {
         <h1
           className={styles.empty}
           style={{
-            animationDuration: isSensorOn ? `${heartRateDuration}s` : "5s",
+            animationDuration: sensorOn ? `${heartRateDuration}s` : "5s",
           }}
         >
           {"{"}
@@ -108,7 +107,7 @@ export default function Empty() {
           className={styles.empty2}
           style={{
             animationDelay: "150ms",
-            animationDuration: isSensorOn ? `${heartRateDuration}s` : "5s",
+            animationDuration: sensorOn ? `${heartRateDuration}s` : "5s",
           }}
         >
           {"}"}

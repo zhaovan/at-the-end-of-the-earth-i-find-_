@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import { useSerial } from "@/context/SerialContext";
 import { getHeartbeatData } from "@/helpers/transformHeartbeatData";
 
-export default function Pain() {
+export default function Taste() {
   const [windowSize, setWindowSize] = useState(0);
   const [cycleKey, setCycleKey] = useState(0);
 
@@ -18,15 +18,6 @@ export default function Pain() {
     });
 
     setWindowSize(window.innerWidth);
-  }, []);
-
-  // Should take 63 seconds EXACTLY, but we set some buffer time
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCycleKey((prev) => prev + 1);
-    }, 75000); // 75 seconds
-
-    return () => clearInterval(interval); // cleanup
   }, []);
 
   // 19 Lines
@@ -43,9 +34,54 @@ export default function Pain() {
     fingerdust and flaky skin // to bring him around with no questions //
     to tell them how i've kissed the sky`;
 
+  const textArray = text.split("//");
+  const [randomLocation, setRandomLocation] = useState(
+    textArray.map((_, idx) => {
+      return {
+        animationDelay: (idx + 1) * 3,
+        top: (idx + 1) * 5,
+        left: Math.random() * (windowSize > 700 ? 75 : 50),
+      };
+    })
+  );
+
+  // Should take 63 seconds EXACTLY, but we set some buffer time
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCycleKey((prev) => prev + 1);
+      setRandomLocation(
+        textArray.map((_, idx) => {
+          return {
+            animationDelay: (idx + 1) * 3,
+            top: (idx + 1) * 5,
+            left: Math.random() * (windowSize > 700 ? 75 : 50),
+          };
+        })
+      );
+    }, 75000); // 75 seconds
+
+    return () => clearInterval(interval); // cleanup
+  }, []);
+
   const heartbeatAudioRef = useRef(null);
   const { output, startTime } = useSerial();
-  const { sensorOn, heartRateDuration } = getHeartbeatData(output, startTime);
+  const [sensorOn, setSensorOn] = useState(false);
+  const [heartRateDuration, setHeartRateDuration] = useState(0);
+  const [timestamp, setTimestamp] = useState(Date.now());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const { sensorOn, heartRateDuration, timestamp } = getHeartbeatData(
+        output,
+        startTime
+      );
+      setSensorOn(sensorOn);
+      setHeartRateDuration(heartRateDuration);
+      setTimestamp(timestamp);
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, [output, startTime]);
 
   useEffect(() => {
     heartbeatAudioRef.current = new Audio("/heartbeat.mp3");
@@ -57,13 +93,15 @@ export default function Pain() {
       heartbeatAudioRef.current = null;
     };
   }, []);
+  console.log("sensorOn", sensorOn);
 
   useEffect(() => {
     const heartbeat = heartbeatAudioRef.current;
+    console.log("heartbeat", heartbeat);
     if (!heartbeat) return;
 
     if (sensorOn) {
-      heartbeatAudioRef.current.playbackRate = heartRateDuration / 3;
+      heartbeatAudioRef.current.playbackRate = 0.6;
       heartbeat.play().catch((err) => {
         console.error("Failed to play heartbeat:", err);
       });
@@ -71,7 +109,7 @@ export default function Pain() {
       heartbeat.pause();
       heartbeat.currentTime = 0; // Reset for next play
     }
-  }, [sensorOn]);
+  }, [sensorOn, timestamp]);
 
   return (
     <div className={styles.main}>
@@ -98,10 +136,9 @@ export default function Pain() {
         </div>
         <p>
           {text.split("//").map((line, idx) => {
-            const animationDelayValue = (idx + 1) * 3;
-            const top = (idx + 1) * 5;
-            const left =
-              windowSize > 700 ? Math.random() * 75 : Math.random() * 50;
+            const animationDelayValue = randomLocation[idx].animationDelay;
+            const top = randomLocation[idx].top;
+            const left = randomLocation[idx].left;
             return (
               <span
                 className={styles.fadingText}

@@ -44,7 +44,21 @@ export default function Love() {
   const [randomNums, setRandomNums] = useState(words.map(() => Math.random()));
 
   const { output, startTime } = useSerial();
-  const { sensorOn } = getHeartbeatData(output, startTime);
+  const [sensorOn, setSensorOn] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const { sensorOn, heartRateDuration, timestamp } = getHeartbeatData(
+        output,
+        startTime
+      );
+      setSensorOn(sensorOn);
+      setHeartRateDuration(heartRateDuration);
+      setTimestamp(timestamp);
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, [output, startTime]);
 
   useEffect(() => {
     const audio = new Audio("/bg.mp3");
