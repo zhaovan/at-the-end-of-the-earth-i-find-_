@@ -52,6 +52,7 @@ export default function Love() {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      console.log(processedOutput === output, "processedOutput === output");
       if (processedOutput !== output) {
         setProcessedOutput(output);
         setSensorOn(true);
@@ -59,6 +60,7 @@ export default function Love() {
         const bpm = parseInt(lastBeat.split(" ")[1]);
         setHeartRate(bpm);
       } else {
+        setHeartRate(0);
         setSensorOn(false);
       }
       // const { sensorOn, heartRate } = getHeartbeatData(output, startTime);

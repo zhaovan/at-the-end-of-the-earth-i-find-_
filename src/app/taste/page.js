@@ -81,6 +81,7 @@ export default function Taste() {
         const bpm = parseInt(lastBeat.split(" ")[1]);
         setHeartRate(bpm);
       } else {
+        setHeartRate(0);
         setSensorOn(false);
       }
       // const { sensorOn, heartRate } = getHeartbeatData(output, startTime);
