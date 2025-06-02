@@ -64,7 +64,6 @@ export default function Love() {
         processedRef.current = curr;
 
         setSensorOn(true);
-
         setHeartRate(bpm);
       } else {
         setHeartRate(0);
