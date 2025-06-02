@@ -43,12 +43,24 @@ export default function Love() {
 
   const [randomNums, setRandomNums] = useState(words.map(() => Math.random()));
 
+  const [processedOutput, setProcessedOutput] = useState([]);
+
   const { output, startTime } = useSerial();
+
   const [heartRateDuration, setHeartRateDuration] = useState(50);
   const [sensorOn, setSensorOn] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (processedOutput !== output) {
+        setProcessedOutput(output);
+        setSensorOn(true);
+        const lastBeat = output[output.length - 1];
+        const bpm = parseInt(lastBeat.split(" ")[1]);
+        setHeartRateDuration(bpm);
+      } else {
+        setSensorOn(false);
+      }
       const { sensorOn, heartRateDuration } = getHeartbeatData(
         output,
         startTime

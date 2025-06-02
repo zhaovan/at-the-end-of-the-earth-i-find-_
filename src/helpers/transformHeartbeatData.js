@@ -26,6 +26,16 @@ export function getHeartbeatData(data, startTime) {
   console.log(currentTime, "currentTime");
   console.log(startTime, "startTime");
 
+  console.log(
+    currentTime - arduinoTime < 5000,
+    "currentTime - arduinoTime < 5000"
+  );
+  console.log(
+    timestampLastBeat - timestampSecondLastBeat < 1500,
+    "timestampLastBeat - timestampSecondLastBeat < 1500"
+  );
+  console.log(Math.abs(bpm - secondLastBPM) < 20);
+
   //   Timestamps are in milliseconds so we can just subtract them
   //  to get the difference in milliseconds (which is 1 second) here
   if (
