@@ -54,7 +54,7 @@ export default function Love() {
         startTime
       );
       setSensorOn(sensorOn);
-      // setHeartRateDuration(heartRateDuration);
+      setHeartRateDuration(heartRateDuration);
     }, 500);
 
     return () => clearInterval(interval);

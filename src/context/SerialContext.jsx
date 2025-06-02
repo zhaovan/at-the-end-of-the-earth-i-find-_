@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { start } from "repl";
 
 const channel = new BroadcastChannel("serial-data");
 const SerialContext = createContext(null);
@@ -16,6 +17,8 @@ export function SerialProvider({ children }) {
       setStartTime(Number(stored));
     }
   }, []);
+  console.log(output);
+  console.log(startTime);
 
   const connectSerial = async () => {
     try {
