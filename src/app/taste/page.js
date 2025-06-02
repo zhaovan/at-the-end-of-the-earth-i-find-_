@@ -137,7 +137,7 @@ export default function Taste() {
             className={styles.image1}
             alt="family photo"
             style={{
-              animationDuration: sensorOn ? `${heartRate}s` : "2.25s",
+              animationDuration: sensorOn ? `${heartRate / 50}s` : "2.25s",
             }}
           />
           <Image
@@ -158,7 +158,7 @@ export default function Taste() {
                 className={styles.fadingText}
                 key={idx}
                 style={{
-                  animationDelay: `${animationDelayValue / 50}s`,
+                  animationDelay: `${animationDelayValue}s`,
                   top: `${top}vh`,
                   left: `${left}vw`,
                 }}
