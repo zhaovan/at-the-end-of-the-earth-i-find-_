@@ -44,7 +44,7 @@ export default function Love() {
   const [randomNums, setRandomNums] = useState(words.map(() => Math.random()));
 
   const { output, startTime } = useSerial();
-  const [heartRateDuration, setHeartRateDuration] = useState(0);
+  const [heartRateDuration, setHeartRateDuration] = useState(50);
   const [sensorOn, setSensorOn] = useState(false);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function Love() {
         startTime
       );
       setSensorOn(sensorOn);
-      setHeartRateDuration(heartRateDuration);
+      // setHeartRateDuration(heartRateDuration);
     }, 500);
 
     return () => clearInterval(interval);
@@ -99,7 +99,8 @@ export default function Love() {
   return (
     <div className={styles.container}>
       {gridWords.map((word, idx) => {
-        const shouldFlicker = randomNums[idx] > heartRateDuration / 200;
+        const percentage = heartRateDuration / 200;
+        const shouldFlicker = randomNums[idx] > percentage;
         const randomDelayValue = randomNums[idx];
 
         return (
