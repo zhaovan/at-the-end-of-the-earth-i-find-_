@@ -11,6 +11,7 @@ export default function Taste() {
 
   const [heartRate, setHeartRate] = useState(0);
   const [sensorOn, setSensorOn] = useState(false);
+  const [processedOutput, setProcessedOutput] = useState([]);
 
   useEffect(() => {
     const audio = new Audio("/bg.mp3");
