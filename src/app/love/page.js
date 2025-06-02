@@ -96,11 +96,14 @@ export default function Love() {
     return () => clearInterval(intervalId);
   }, [gridWords, direction]);
 
+  console.log("sensorOn", sensorOn);
+  console.log("heartRateDuration", heartRateDuration);
+
   return (
     <div className={styles.container}>
       {gridWords.map((word, idx) => {
         const percentage = heartRateDuration / 200;
-        const shouldFlicker = randomNums[idx] > percentage;
+        const shouldFlicker = randomNums[idx] < percentage;
         const randomDelayValue = randomNums[idx];
 
         return (

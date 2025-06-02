@@ -22,6 +22,9 @@ export function getHeartbeatData(data, startTime) {
 
   //   Need to do this calculatiuon to get add start time to how the browser treats time
   const arduinoTime = timestampLastBeat + startTime;
+  console.log(arduinoTime, "arduinoTime");
+  console.log(currentTime, "currentTime");
+  console.log(startTime, "startTime");
 
   //   Timestamps are in milliseconds so we can just subtract them
   //  to get the difference in milliseconds (which is 1 second) here
