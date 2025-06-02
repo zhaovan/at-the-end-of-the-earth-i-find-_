@@ -68,12 +68,12 @@
 
 .imageContainer {
   position: relative;
-  animation: heartbeat 1s linear infinite;
+  animation: heartbeat 2.25s linear infinite;
 }
 
 .imageContainerActive {
   position: relative;
-  animation: heartbeatActive 1s linear infinite;
+  animation: heartbeatActive 1.5s linear infinite;
 }
 
 .container {
