@@ -39,6 +39,7 @@ export default function Taste() {
     to tell them how i've kissed the sky`;
 
   const textArray = text.split("//");
+  const processedRef = useRef([]); // <- hold latest value
   const [randomLocation, setRandomLocation] = useState(
     textArray.map((_, idx) => {
       return {
@@ -74,27 +75,25 @@ export default function Taste() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // if (processedOutput.length !== output.length) {
-      //   setProcessedOutput(output);
-      //   setSensorOn(true);
-      //   const lastBeat = output[output.length - 1];
-      //   const bpm = parseInt(lastBeat.split(" ")[1]);
-      //   setHeartRate(bpm);
-      // } else {
-      //   setHeartRate(0);
-      //   setSensorOn(false);
-      // }
-      // const { sensorOn, heartRate } = getHeartbeatData(output, startTime);
-      // setSensorOn(sensorOn);
-      // setHeartRate(heartRate);
+      const prev = processedRef.current;
+      const curr = output;
 
-      const { sensorOn, heartRate, timestamp } = getHeartbeatData(
-        output,
-        startTime
-      );
-      setSensorOn(sensorOn);
-      setHeartRate(heartRate);
-      setTimestamp(timestamp);
+      const hasNewData =
+        curr.length !== prev.length || curr.some((item, i) => item !== prev[i]);
+
+      const lastBeat = curr[curr.length - 1];
+      const bpm = parseInt(lastBeat.split(" ")[1]);
+
+      if (hasNewData && bpm > 45 && bpm < 205) {
+        processedRef.current = curr;
+
+        setSensorOn(true);
+
+        setHeartRate(bpm);
+      } else {
+        setHeartRate(0);
+        setSensorOn(false);
+      }
     }, 500);
 
     return () => clearInterval(interval);
@@ -103,22 +102,20 @@ export default function Taste() {
   useEffect(() => {
     heartbeatAudioRef.current = new Audio("/heartbeat.mp3");
     heartbeatAudioRef.current.loop = true;
-    heartbeatAudioRef.current.volume = 0.5; // Adjust as needed
+    heartbeatAudioRef.current.volume = 0.8; // Adjust as needed
 
     return () => {
       heartbeatAudioRef.current?.pause();
       heartbeatAudioRef.current = null;
     };
   }, []);
-  console.log("sensorOn", sensorOn);
 
   useEffect(() => {
     const heartbeat = heartbeatAudioRef.current;
-    console.log("heartbeat", heartbeat);
     if (!heartbeat) return;
 
     if (sensorOn) {
-      heartbeatAudioRef.current.playbackRate = 0.6;
+      heartbeatAudioRef.current.playbackRate = 0.7;
       heartbeat.play().catch((err) => {
         console.error("Failed to play heartbeat:", err);
       });

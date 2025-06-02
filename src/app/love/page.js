@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useEffect, useMemo, useState } from "react";
+import React, { use, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./page.module.css";
 import { useSerial } from "@/context/SerialContext";
 import { getHeartbeatData } from "@/helpers/transformHeartbeatData";
@@ -43,31 +43,33 @@ export default function Love() {
 
   const [randomNums, setRandomNums] = useState(words.map(() => Math.random()));
 
-  const [processedOutput, setProcessedOutput] = useState([]);
-
   const { output, startTime } = useSerial();
 
   const [heartRate, setHeartRate] = useState(0);
   const [sensorOn, setSensorOn] = useState(false);
+  const processedRef = useRef([]); // <- hold latest value
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log(processedOutput, "processedOutput");
-      console.log(output, "output");
-      console.log(processedOutput === output, "processedOutput === output");
-      if (processedOutput.length !== output) {
-        setProcessedOutput(output);
+      const prev = processedRef.current;
+      const curr = output;
+
+      const hasNewData =
+        curr.length !== prev.length || curr.some((item, i) => item !== prev[i]);
+
+      const lastBeat = curr[curr.length - 1];
+      const bpm = parseInt(lastBeat.split(" ")[1]);
+
+      if (hasNewData && bpm > 45 && bpm < 205) {
+        processedRef.current = curr;
+
         setSensorOn(true);
-        const lastBeat = output[output.length - 1];
-        const bpm = parseInt(lastBeat.split(" ")[1]);
+
         setHeartRate(bpm);
       } else {
         setHeartRate(0);
         setSensorOn(false);
       }
-      // const { sensorOn, heartRate } = getHeartbeatData(output, startTime);
-      // setSensorOn(sensorOn);
-      // setHeartRate(heartRate);
     }, 500);
 
     return () => clearInterval(interval);
@@ -110,7 +112,6 @@ export default function Love() {
   }, [gridWords, direction]);
 
   console.log("sensorOn", sensorOn);
-  console.log("heartRate", heartRate);
 
   return (
     <div className={styles.container}>
