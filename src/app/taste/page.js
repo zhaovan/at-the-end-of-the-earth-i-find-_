@@ -157,7 +157,7 @@ export default function Taste() {
                 className={styles.fadingText}
                 key={idx}
                 style={{
-                  animationDelay: `${animationDelayValue}s`,
+                  animationDelay: `${animationDelayValue / 50}s`,
                   top: `${top}vh`,
                   left: `${left}vw`,
                 }}
