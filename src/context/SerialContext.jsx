@@ -1,6 +1,5 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { start } from "repl";
 
 const channel = new BroadcastChannel("serial-data");
 const SerialContext = createContext(null);
