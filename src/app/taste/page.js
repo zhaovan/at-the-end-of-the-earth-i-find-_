@@ -111,6 +111,8 @@ export default function Taste() {
     }
   }, [sensorOn, timestamp]);
 
+  console.log(heartRate);
+
   return (
     <div className={styles.main}>
       <div className={styles.container} key={cycleKey}>
