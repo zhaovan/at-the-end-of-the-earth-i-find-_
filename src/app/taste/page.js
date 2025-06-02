@@ -74,7 +74,7 @@ export default function Taste() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (processedOutput !== output) {
+      if (processedOutput.length !== output.length) {
         setProcessedOutput(output);
         setSensorOn(true);
         const lastBeat = output[output.length - 1];

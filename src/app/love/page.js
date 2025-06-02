@@ -55,7 +55,7 @@ export default function Love() {
       console.log(processedOutput, "processedOutput");
       console.log(output, "output");
       console.log(processedOutput === output, "processedOutput === output");
-      if (processedOutput !== output) {
+      if (processedOutput.length !== output) {
         setProcessedOutput(output);
         setSensorOn(true);
         const lastBeat = output[output.length - 1];
