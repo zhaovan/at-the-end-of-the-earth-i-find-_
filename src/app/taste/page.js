@@ -128,7 +128,11 @@ export default function Taste() {
   return (
     <div className={styles.main}>
       <div className={styles.container} key={cycleKey}>
-        <div className={styles.imageContainer}>
+        <div
+          className={
+            sensorOn ? styles.imageContainerActive : styles.imageContainer
+          }
+        >
           <Image
             src={"/image.png"}
             width={600}

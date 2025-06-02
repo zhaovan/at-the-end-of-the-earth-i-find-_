@@ -68,6 +68,12 @@
 
 .imageContainer {
   position: relative;
+  animation: heartbeat 1s linear infinite;
+}
+
+.imageContainerActive {
+  position: relative;
+  animation: heartbeatActive 1s linear infinite;
 }
 
 .container {
@@ -88,4 +94,46 @@
   animation: fadeIn 4s ease-out;
   transform: scaleX(-1);
   opacity: 0.8;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.02);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.01);
+  }
+  70% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes heartbeatActive {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.15);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
