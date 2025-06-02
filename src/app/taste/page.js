@@ -66,17 +66,17 @@ export default function Taste() {
   const heartbeatAudioRef = useRef(null);
   const { output, startTime } = useSerial();
   const [sensorOn, setSensorOn] = useState(false);
-  const [heartRateDuration, setHeartRateDuration] = useState(0);
+  const [heartRate, setHeartRate] = useState(0);
   const [timestamp, setTimestamp] = useState(Date.now());
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const { sensorOn, heartRateDuration, timestamp } = getHeartbeatData(
+      const { sensorOn, heartRate, timestamp } = getHeartbeatData(
         output,
         startTime
       );
       setSensorOn(sensorOn);
-      setHeartRateDuration(heartRateDuration);
+      setHeartRate(heartRate);
       setTimestamp(timestamp);
     }, 500);
 
@@ -123,7 +123,7 @@ export default function Taste() {
             className={styles.image1}
             alt="family photo"
             style={{
-              animationDuration: sensorOn ? `${heartRateDuration}s` : "2.25s",
+              animationDuration: sensorOn ? `${heartRate}s` : "2.25s",
             }}
           />
           <Image

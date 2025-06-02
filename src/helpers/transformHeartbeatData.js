@@ -8,7 +8,7 @@ export function getHeartbeatData(data, startTime) {
   if (data.length < 2)
     return {
       sensorOn: false,
-      heartRateDuration: 0,
+      heartRate: 0,
     };
 
   const lastBeat = data[data.length - 1];
@@ -47,15 +47,13 @@ export function getHeartbeatData(data, startTime) {
   ) {
     return {
       sensorOn: true,
-      heartRateDuration: convertHeartRateBPMtoDuration(
-        parseInt(lastBeat.split(" ")[1])
-      ),
+      heartRate: parseInt(lastBeat.split(" ")[1]),
       timestamp: currentTime,
     };
   } else {
     return {
       sensorOn: false,
-      heartRateDuration: 0,
+      heartRate: 0,
       timestamp: currentTime,
     };
   }

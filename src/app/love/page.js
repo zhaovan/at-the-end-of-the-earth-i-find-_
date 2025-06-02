@@ -47,7 +47,7 @@ export default function Love() {
 
   const { output, startTime } = useSerial();
 
-  const [heartRateDuration, setHeartRateDuration] = useState(50);
+  const [heartRate, setHeartRate] = useState(50);
   const [sensorOn, setSensorOn] = useState(false);
 
   useEffect(() => {
@@ -57,16 +57,13 @@ export default function Love() {
         setSensorOn(true);
         const lastBeat = output[output.length - 1];
         const bpm = parseInt(lastBeat.split(" ")[1]);
-        setHeartRateDuration(bpm);
+        setHeartRate(bpm);
       } else {
         setSensorOn(false);
       }
-      const { sensorOn, heartRateDuration } = getHeartbeatData(
-        output,
-        startTime
-      );
+      const { sensorOn, heartRate } = getHeartbeatData(output, startTime);
       setSensorOn(sensorOn);
-      setHeartRateDuration(heartRateDuration);
+      setHeartRate(heartRate);
     }, 500);
 
     return () => clearInterval(interval);
@@ -109,12 +106,12 @@ export default function Love() {
   }, [gridWords, direction]);
 
   console.log("sensorOn", sensorOn);
-  console.log("heartRateDuration", heartRateDuration);
+  console.log("heartRate", heartRate);
 
   return (
     <div className={styles.container}>
       {gridWords.map((word, idx) => {
-        const percentage = heartRateDuration / 200;
+        const percentage = heartRate / 200;
         const shouldFlicker = randomNums[idx] < percentage;
         const randomDelayValue = randomNums[idx];
 

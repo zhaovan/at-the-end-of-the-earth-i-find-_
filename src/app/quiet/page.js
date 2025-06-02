@@ -26,16 +26,13 @@ export default function Empty() {
   const heartbeatAudioRef = useRef(null);
   const { output, startTime } = useSerial();
   const [sensorOn, setSensorOn] = useState(false);
-  const [heartRateDuration, setHeartRateDuration] = useState(0);
+  const [heartRate, setHeartRate] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const { sensorOn, heartRateDuration } = getHeartbeatData(
-        output,
-        startTime
-      );
+      const { sensorOn, heartRate } = getHeartbeatData(output, startTime);
       setSensorOn(sensorOn);
-      setHeartRateDuration(heartRateDuration);
+      setHeartRate(heartRate);
     }, 500);
 
     return () => clearInterval(interval);
@@ -98,7 +95,7 @@ export default function Empty() {
         <h1
           className={styles.empty}
           style={{
-            animationDuration: sensorOn ? `${heartRateDuration}s` : "5s",
+            animationDuration: sensorOn ? `${heartRate}s` : "5s",
           }}
         >
           {"{"}
@@ -107,7 +104,7 @@ export default function Empty() {
           className={styles.empty2}
           style={{
             animationDelay: "150ms",
-            animationDuration: sensorOn ? `${heartRateDuration}s` : "5s",
+            animationDuration: sensorOn ? `${heartRate}s` : "5s",
           }}
         >
           {"}"}
