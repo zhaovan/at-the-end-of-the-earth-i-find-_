@@ -99,7 +99,7 @@ export default function Love() {
   return (
     <div className={styles.container}>
       {gridWords.map((word, idx) => {
-        const shouldFlicker = randomNums[idx] > 0.6;
+        const shouldFlicker = randomNums[idx] > heartRateDuration / 200;
         const randomDelayValue = randomNums[idx];
 
         return (
