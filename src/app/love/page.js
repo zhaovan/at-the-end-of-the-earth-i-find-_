@@ -52,6 +52,8 @@ export default function Love() {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      console.log(processedOutput, "processedOutput");
+      console.log(output, "output");
       console.log(processedOutput === output, "processedOutput === output");
       if (processedOutput !== output) {
         setProcessedOutput(output);
