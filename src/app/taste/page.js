@@ -74,23 +74,26 @@ export default function Taste() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (processedOutput.length !== output.length) {
-        setProcessedOutput(output);
-        setSensorOn(true);
-        const lastBeat = output[output.length - 1];
-        const bpm = parseInt(lastBeat.split(" ")[1]);
-        setHeartRate(bpm);
-      } else {
-        setHeartRate(0);
-        setSensorOn(false);
-      }
+      // if (processedOutput.length !== output.length) {
+      //   setProcessedOutput(output);
+      //   setSensorOn(true);
+      //   const lastBeat = output[output.length - 1];
+      //   const bpm = parseInt(lastBeat.split(" ")[1]);
+      //   setHeartRate(bpm);
+      // } else {
+      //   setHeartRate(0);
+      //   setSensorOn(false);
+      // }
       // const { sensorOn, heartRate } = getHeartbeatData(output, startTime);
       // setSensorOn(sensorOn);
       // setHeartRate(heartRate);
 
-      const { timestamp } = getHeartbeatData(output, startTime);
-      // setSensorOn(sensorOn);
-      // setHeartRate(heartRate);
+      const { sensorOn, heartRate, timestamp } = getHeartbeatData(
+        output,
+        startTime
+      );
+      setSensorOn(sensorOn);
+      setHeartRate(heartRate);
       setTimestamp(timestamp);
     }, 500);
 
