@@ -9,6 +9,9 @@ export default function Taste() {
   const [windowSize, setWindowSize] = useState(0);
   const [cycleKey, setCycleKey] = useState(0);
 
+  const [heartRate, setHeartRate] = useState(0);
+  const [sensorOn, setSensorOn] = useState(false);
+
   useEffect(() => {
     const audio = new Audio("/bg.mp3");
     audio.volume = 0.15;
@@ -65,18 +68,27 @@ export default function Taste() {
 
   const heartbeatAudioRef = useRef(null);
   const { output, startTime } = useSerial();
-  const [sensorOn, setSensorOn] = useState(false);
-  const [heartRate, setHeartRate] = useState(0);
+
   const [timestamp, setTimestamp] = useState(Date.now());
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const { sensorOn, heartRate, timestamp } = getHeartbeatData(
-        output,
-        startTime
-      );
-      setSensorOn(sensorOn);
-      setHeartRate(heartRate);
+      if (processedOutput !== output) {
+        setProcessedOutput(output);
+        setSensorOn(true);
+        const lastBeat = output[output.length - 1];
+        const bpm = parseInt(lastBeat.split(" ")[1]);
+        setHeartRate(bpm);
+      } else {
+        setSensorOn(false);
+      }
+      // const { sensorOn, heartRate } = getHeartbeatData(output, startTime);
+      // setSensorOn(sensorOn);
+      // setHeartRate(heartRate);
+
+      const { timestamp } = getHeartbeatData(output, startTime);
+      // setSensorOn(sensorOn);
+      // setHeartRate(heartRate);
       setTimestamp(timestamp);
     }, 500);
 
@@ -110,8 +122,6 @@ export default function Taste() {
       heartbeat.currentTime = 0; // Reset for next play
     }
   }, [sensorOn, timestamp]);
-
-  console.log(heartRate);
 
   return (
     <div className={styles.main}>

@@ -47,7 +47,7 @@ export default function Love() {
 
   const { output, startTime } = useSerial();
 
-  const [heartRate, setHeartRate] = useState(50);
+  const [heartRate, setHeartRate] = useState(0);
   const [sensorOn, setSensorOn] = useState(false);
 
   useEffect(() => {
@@ -61,9 +61,9 @@ export default function Love() {
       } else {
         setSensorOn(false);
       }
-      const { sensorOn, heartRate } = getHeartbeatData(output, startTime);
-      setSensorOn(sensorOn);
-      setHeartRate(heartRate);
+      // const { sensorOn, heartRate } = getHeartbeatData(output, startTime);
+      // setSensorOn(sensorOn);
+      // setHeartRate(heartRate);
     }, 500);
 
     return () => clearInterval(interval);
